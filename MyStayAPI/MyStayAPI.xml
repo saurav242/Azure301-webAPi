@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MyStayAPI</name>
+    </assembly>
+    <members>
+        <member name="M:MyStayAPI.Controllers.HotelController.GetAllHotel">
+            <summary>
+            Get All Hotels
+            </summary>
+            <returns> All the Hotels</returns>
+        </member>
+    </members>
+</doc>
