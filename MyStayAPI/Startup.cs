@@ -37,6 +37,14 @@ namespace MyStayAPI
             services.AddScoped<IHotelRoomAgent, HotelRoomAgent>();
             services.AddScoped<IBookingAgent, BookingAgent>();
 
+
+            services.AddDistributedRedisCache(option =>
+            {
+                option.Configuration = Configuration.GetConnectionString("RedisConnection");
+                option.InstanceName = "master";
+            });
+
+
             services.AddSwaggerGen(setupAction =>
             {
                 setupAction.SwaggerDoc("MyStaySpecification", new Microsoft.OpenApi.Models.OpenApiInfo()
@@ -44,7 +52,7 @@ namespace MyStayAPI
                     Title = "MyStay API",
                     Version = "1"
                 });
-                setupAction.IncludeXmlComments("MyStayAPI.xml");
+                // setupAction.IncludeXmlComments("MyStayAPI.xml");
             });
 
         }
@@ -52,15 +60,15 @@ namespace MyStayAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+            //if (env.IsDevelopment())
+            //{
+            app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            //    app.UseHsts();
+            //}
 
             app.UseHttpsRedirection();
             app.UseSwagger();
@@ -69,7 +77,7 @@ namespace MyStayAPI
                 setupAction.SwaggerEndpoint("/swagger/MyStaySpecification/swagger.json",
                     "MyStay API");
                 setupAction.RoutePrefix = "";
-                
+
             });
 
 
